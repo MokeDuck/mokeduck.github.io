@@ -1,19 +1,78 @@
 <!doctype html>
 <html lang="en">
+
   <head>
+  
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	
+	<script src="./glaemscribe/js/glaemscribe.js"></script>
+    <script src="./glaemscribe/js/charsets/cirth_ds.cst.js"/>
+    <script src="./glaemscribe/js/modes/khuzdul-cirth-moria.glaem.js"/>
+    <script src="./glaemscribe/js/modes/english-cirth-espeak.glaem.js"/>
+	
+	<script>
+    // load glaemscribe
+    Glaemscribe.resource_manager.load_modes("english-cirth-espeak")
+    // use cirth
+    var cirth = Glaemscribe.resource_manager.loaded_modes["english-cirth-espeak"]
+
+    var test = cirth.transcribe("Turin Turumbar Master of fate may he rest as he reaches Mandos's gate")
+
+    document.getElementById("output2").innerHTML = test + " ";
+    </script>
 
   </head>
-  <script>
 
+    <script src="./glaemscribe/js/glaemscribe.js"></script>
+    <script src="./glaemscribe/js/charsets/cirth_ds.cst.js"></script>
+    <script src="./glaemscribe/js/modes/khuzdul-cirth-moria.glaem.js"></script>
+    <script src="./glaemscribe/js/modes/english-cirth-espeak.glaem.js"></script>
+	<script src="./glaemscribe/js/espeakng.for.glaemscribe.nowasm.sync.js"></script>
+
+  <script>
+  
+// load glaemscribe
+Glaemscribe.resource_manager.load_modes()
+
+// Access loaded modes
+var cirth = Glaemscribe.resource_manager.loaded_modes["english-cirth-espeak"]
+
+// var test = cirth.transcribe("Turin Turumbar Master of fate may he rest as he reaches Mandos's gate")
+// Will give the transcription in the default charset of the cirth mode, 
+// 'ds_based', which corresponds to the common charset of the fonts based 
+// on the old fonts designed by Dan Smith
+  
 function update() {
 
-    var str = document.getElementById("input").value
+    var str = document.getElementById("input").value;
+	
+	var glaemStr = cirth.transcribe(str);
+	
+	if (glaemStr[0]) {
+		var strDS = replaceDanSmith(glaemStr[1]);
+	} else {var strDS = glaemStr;}
+	
+str = str.replace(/th/gi, "ᛐ");
+	
+	str = str.replace(/ch/gi, "ᚳ");
+	
+	<!--
+	//str = str.replace(/sh/gi, "ᛆ̷");
+	//str = str.replace(/sh/gi, "⸝⃒");
+	//str = str.replace(/sh/gi, "ɹ");
+	str = str.replace(/sh/gi, "ɻ");
+	str = str.replace(/th/gi, "ꟻ");
+	-->
+	
+	str = str.replace(/sh/gi, "ℷ");
+	
+	var res01 = str.replace(/ch/gi, "ᚳ");
 
     var res01 = str.replace(/a/gi, "ᚢ");
 
@@ -45,7 +104,7 @@ function update() {
 
     var res15 = res14.replace(/p/gi, "ᚹ");
 
-    var res16 = res15.replace(/q/gi, "ᚴ◊");
+    var res16 = res15.replace(/q/gi, "ᚴ߉");
 
     var res17 = res16.replace(/r/gi, "ᛏ");
 
@@ -57,31 +116,350 @@ function update() {
 
     var res21 = res20.replace(/v/gi, "Я");
 
-    var res22 = res21.replace(/w/gi, "◊");
+    var res22 = res21.replace(/w/gi, "߉"); // see ߉, 𐩺, 𖥣, 𖢈, 𖥩, 𐰛
 
     var res23 = res22.replace(/x/gi, "ᚴ❯");
 
     var res24 = res23.replace(/y/gi, "ᛋ");
 
     var res25 = res24.replace(/z/gi, "❯");
+	
 
-    
-
-    document.getElementById("output").innerHTML = res25 + " ";
+    document.getElementById("output2").innerHTML = res25 + " ";
+	
+	document.getElementById("output").innerHTML = strDS + " ";
 
 }
 
+function replaceDanSmith(str) {
+
+str = str.replace(/~/g, "‎𐤥‎");
+str = str.replace(/!/g, "‎𐤥‎");
+str = str.replace(/@/g, "ᛏ");
+str = str.replace(/#/g, "ᚳ"); // ᚭ ᖶ 𞠤
+str = str.replace(/\$/g, "ᚭ"); // Escaped character '$'
+str = str.replace(/%/g, "‎𐤣‎"); // maybe a space ^
+str = str.replace(/\^/g, " "); // Escaped character '^'
+str = str.replace(/&/g, "ᚤ");
+str = str.replace(/\*/g, "ᚥ"); // Escaped character '*'
+str = str.replace(/\(/g, "⫙"); // Escaped character '(' maybe also use "𐪂"
+str = str.replace(/\)/g, "𖽀"); // see also 𞠟, ᗅ‎, Escaped character ')'
+str = str.replace(/_/g, "⩙");
+str = str.replace(/\+/g, "Ꮤ"); // Escaped character '+'
+
+str = str.replace(/Q/g, "Ꮈ");
+str = str.replace(/W/g, "ᛠ");
+str = str.replace(/E/g, "ᛈ"); // maybe ⥏
+str = str.replace(/R/g, "ᛕ");
+str = str.replace(/T/g, "ꓘ");
+
+str = str.replace(/Y/g, " ");
+str = str.replace(/U/g, "ⵥ"); // 米
+str = str.replace(/I/g, "᛫");
+str = str.replace(/O/g, "᛬");
+str = str.replace(/P/g, "⋮");
+str = str.replace(/\{/g, "�"); // Escaped character '{'
+str = str.replace(/\}/g, "�"); // Escaped character '}'
+str = str.replace(/\|/g, "�"); // Escaped character '|'
+
+str = str.replace(/A/g, "꒛");
+str = str.replace(/S/g, "ᛟ");
+str = str.replace(/D/g, "ᛝ");
+str = str.replace(/F/g, "𐩺"); // see ߉, 𐩺, 𖥣, 𖢈, 𖥩, 𐰛
+str = str.replace(/G/g, "𖢈");
+str = str.replace(/H/g, " ");
+str = str.replace(/J/g, "ᛗ");
+str = str.replace(/K/g, "ᛞ");
+str = str.replace(/L/g, "�");
+str = str.replace(/:/g, "⫳");
+str = str.replace(/"/g, "ᛌ");
+
+str = str.replace(/Z/g, "ᛆ");
+str = str.replace(/X/g, "þ");
+str = str.replace(/C/g, "𐕀");
+str = str.replace(/V/g, "ᛧ");
+str = str.replace(/B/g, "႑"); //!! this one is bad on at least android
+str = str.replace(/N/g, " ");
+str = str.replace(/M/g, "ᛖ");
+str = str.replace(/</g, "𐪂");
+str = str.replace(/>/g, "‐"); // see also `, or ⁓, ֊
+str = str.replace(/\?/g, "‐"); // Escaped character '?' ⹝
+str = str.replace(/\|/g, "�"); // Escaped character '|' (repeated for the end of the line)
+
+str = str.replace(/`/g, " ");
+str = str.replace(/1/g, "ᚹ");
+str = str.replace(/2/g, "ᚱ");
+str = str.replace(/3/g, "ᛩ");
+str = str.replace(/4/g, "𐙕");
+str = str.replace(/5/g, "𐩺"); // might not work, use � or 𐙲
+str = str.replace(/6/g, "ᛒ");
+str = str.replace(/7/g, "‎𐲘‎");
+str = str.replace(/8/g, "ᛚ");
+str = str.replace(/9/g, "ᚨ");
+str = str.replace(/0/g, "ᛐ");
+str = str.replace(/=/g, " "); // these two
+str = str.replace(/-/g, "="); // are switched
+
+str = str.replace(/q/g, "ᚮ");
+str = str.replace(/w/g, "ᛣ");
+str = str.replace(/e/g, "ᚴ");
+str = str.replace(/r/g, "ᚠ");
+str = str.replace(/t/g, "‎𐤰‎");
+str = str.replace(/y/g, "�"); // ꛙ? 
+str = str.replace(/u/g, "ᛉ");
+str = str.replace(/i/g, "�");
+str = str.replace(/o/g, "ᚩ");
+str = str.replace(/p/g, "‎𐤫‎");
+str = str.replace(/\[/g, " "); // Escaped character '['
+str = str.replace(/\]/g, "𐌢"); // Escaped character ']'
+str = str.replace(/\\/g, "."); // Escaped character '\' (requires double-escape)
+
+str = str.replace(/a/g, "ᛅ");
+str = str.replace(/s/g, "ᚾ");
+str = str.replace(/d/g, "ᛡ");
+str = str.replace(/f/g, "𐑶"); // see ❭ or 𐑶 or 𐕆
+str = str.replace(/g/g, "ᚲ");
+str = str.replace(/h/g, "ᚷ");
+str = str.replace(/j/g, "ᚸ");
+str = str.replace(/k/g, "ᛞ");
+str = str.replace(/l/g, "ᛁ");
+str = str.replace(/;/g, "ᛋ"); // this whole block seems a bit...
+str = str.replace(/'/g, "�"); // ... out of order
+
+str = str.replace(/z/g, "ᚺ");
+str = str.replace(/x/g, "ᚻ");
+str = str.replace(/c/g, "ᚢ");
+str = str.replace(/v/g, "𐌀"); // or 𐌀
+str = str.replace(/b/g, "Λ");
+str = str.replace(/n/g, "ᛖ"); //see ᨏ or ㅆ or ⩕ or 𝕄
+str = str.replace(/m/g, "‎𐪂‎");
+str = str.replace(/,/g, "𐌖");
+str = str.replace(/\./g, "⅄"); // Escaped character '.' see also "ᛸ"
+str = str.replace(/\//g, "ᚿ"); // Escaped character '/'
+str = str.replace(/\\/g, "."); // Escaped character '\'
+
+str = str.replace(/Ê/g, ""); // possibly �
+
+
+    
+//	var str2 = str2.replace(/B/g, "c@9"); // the word "and"
+//	
+//	str2 = str2.replace(/`/g, " ");//◊
+//	
+//	str2 = str2.replace(/!/g, "‎𐤥‎");
+//	<!--str = str.replace(/!/gi, "ᛐ");-->
+//	
+//	str2 = str2.replace(/c/g, "ᚢ");
+//	
+//	str2 = str2.replace(/d/g, "ᛯ");
+//	
+//	str2 = str2.replace(/8/g, "ᛚ");
+//	
+//	str2 = str2.replace(/e/g, "ᚴ𐰛");
+//	
+//	str2 = str2.replace(/F/g, "߉"); // see ߉, 𐩺, 𖥣, 𖢈, 𖥩, 𐰛
+//	
+//	str2 = str2.replace(/l/g, "ᛁ");
+//	
+//	str2 = str2.replace(/2/g, "ᚱ");
+//	
+//	str2 = str2.replace(/x/g, "ᚻ");
+//	
+//	str2 = str2.replace(/q/g, "ᛕ");
+//	<!--
+//	//str2 = str2.replace(/q/g, "ᚮ");
+//	//str2 = str2.replace(/q/g, "ℷ̷");
+//	//str2 = str2.replace(/q/g, "ᚮ̷");
+//	// maybe even ˥̷
+//	-->
+//	str2 = str2.replace(/3/g, "ᛩ");
+//	
+//	str2 = str2.replace(/v/g, "ᚥ");
+//	// ᚤ 
+//	
+//	str2 = str2.replace(/g/g, "ᚲ");
+//	
+//	str2 = str2.replace(/\$/g, "ᛕ");
+//	
+//	str2 = str2.replace(/\?/g, "~");
+//	
+//	str2 = str2.replace(/1/g, "ᚹ");
+//	
+//	// str = str.replace(/Ê/g, "̂");
+//	str2 = str2.replace(/Ê/g, "");
+//	
+//	str2 = str2.replace(/@/g, "ᛏ");
+//	
+//	str2 = str2.replace(/"/g, "ᛌ");
+//	
+//	str2 = str2.replace(/z/g, "ᚺ");
+//	
+//	str2 = str2.replace(/T/g, "ꓘ");
+//	
+//	str2 = str2.replace(/k/g, "ᛞ");
+//	
+//	str2 = str2.replace(/4/g, "𐙕"); // maybe ᛩ̷
+//	
+//	str2 = str2.replace(/>/g, "`");
+//	// ∖ˋ⸜ (ps maybe this one isn't needed)
+//	
+//	str2 = str2.replace(/V/g, "ᛧ");
+//    
+//    str2 = str2.replace(/#/g, "ᚳ");
+//    
+//    str2 = str2.replace(/0/g, "ᛐ");
+//    
+//    str2 = str2.replace(/9/g, "ᚫ");
+//    
+//    str2 = str2.replace(/r/g, "ᚠ");
+//    
+//    str2 = str2.replace(/N/g, " ");
+//    
+//    str2 = str2.replace(/P/g, "⋮");
+//    
+//    str2 = str2.replace(/a/g, "ᛅ");
+//    
+//    str2 = str2.replace(/S/g, "ᛟ");
+//    
+//    str2 = str2.replace(/\*/g, "ᚥ"); // Escaped *
+//    
+//    str2 = str2.replace(/I/g, "᛫");
+//    
+//    str2 = str2.replace(/&/g, "ᚤ");
+//    
+//    str2 = str2.replace(/%/g, "‎𐤣‎"); // see also ℷ ᖽ, Ꮧ
+//    
+//    str2 = str2.replace(/n/g, "ᛖ");
+//    
+//    str2 = str2.replace(/\./g, "⅄"); // Escaped .
+//	// runic "ᛸ" is supported by apple and windows, but not android
+//    
+//    str2 = str2.replace(/h/g, "ᚷ");
+//    
+//    str2 = str2.replace(/;/g, "ᛋ"); 
+//	//ᛁ seems like a common alternative?
+//    
+//    str2 = str2.replace(/D/g, "ᛝ");
+//    
+//    str2 = str2.replace(/\//g, "ᚿ"); // Escaped /
+//    
+//    str2 = str2.replace(/R/g, "ᛕ");
+//    
+//    str2 = str2.replace(/u/g, "ᛉ");
+//	
+//	str2 = str2.replace(/b/g, "Λ");
+//	
+//	str2 = str2.replace(/f/g, "❭");
+//	
+//	str2 = str2.replace(/6/g, "ᛒ");
+//	
+//	str2 = str2.replace(/5/g, "‎𐲘‎");//ᛜ ◊ ᛊ⃓ ᛊ⃒ 
+//	
+//	str2 = str2.replace(/^/g, " ");
+//	
+//	str2 = str2.replace(/\(/g, "ᚻ"); // dang!
+//	
+//	str2 = str2.replace(/\)/g, "Λᛟ"); // dang! again
+//	
+//	str2 = str2.replace(/_/g, "☠");
+//	
+//	str2 = str2.replace(/Q/g, "☠");
+//	
+//	//str2 = str2.replace(//g, "☠");
+//	
+//	//var res25 = str
+//	
+//	str2 = str2.replace(/\+/g, "W"); //needs to be last // see also Ꮤ
+	
+	return str;
+}
+
 </script>
-    <body>
+
+	
+    <body onload='update()'>
+	
+	    <div id="menu-placeholder" class="loading-indicator">
+            Loading navigation menu...
+        </div>
+		
+		<!--
         <nav class="navbar navbar-expand-md navbar-light bg-blue fixed-top" id="entireNavHeader">
+		</nav>
+		-->
+		<script>
+		    //const menuFile = 'menu.html';
+		    var menu = fetch('menu.html');
+			//var menuHTML = menu.text();
+			
+			var menuHTML = "<!-- Start of the reusable navigation component -->
+<nav class="navbar">
+    <!-- Logo -->
+    <a href="#" class="navbar-logo">BrandName</a>
+
+    <!-- Hamburger Icon for Mobile -->
+    <div class="hamburger" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <!-- Links Container -->
+    <ul class="nav-links">
+        <!-- Standard Links -->
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+
+        <!-- Dropdown 1 -->
+        <li class="dropdown" id="services-dropdown">
+            <a href="#">
+                Services <i class="arrow"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Web Design</a></li>
+                <li><a href="#">SEO Marketing</a></li>
+                <li><a href="#">Consulting</a></li>
+            </ul>
+        </li>
+
+        <!-- Dropdown 2 -->
+        <li class="dropdown" id="products-dropdown">
+            <a href="#">
+                Products <i class="arrow"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Software</a></li>
+                <li><a href="#">Hardware</a></li>
+                <li><a href="#">Accessories</a></li>
+            </ul>
+        </li>
+
+        <!-- Button -->
+        <li><a href="#" class="btn-nav">Contact Us</a></li>
+    </ul>
 </nav>
+<!-- End of the reusable navigation component -->"
+			
+			document.getElementById('menu-placeholder').innterHTML = menuHTML;
+		</script>
 
 <main role="main" class="container">
 
   <div class="starter-template">
-  <h1><br><br> ᚹᚢᛋ ᛘΛ ᚢᛚᛚᚺᛘᛚᛁΛᛘ ᛚΛ ᛚᛣᛁ❯ <br></h1><p> Type in the ancient language of the ducks, to avoid detection by The Organization</p>
-  <input id='input' type='text' oninput='update()'>
-  <p id="output"> </p>
+  <h1><br><br> R Tool 2.0 <br></h1><p> Copy paste the runes from https://glaemscrafu.jrrvf.com/english/glaemscribe.html?mode=english-cirth-espeak (cirth) which is using the Daniel Smith runic font, and get out unicode equivalents</p>
+
+
+  <textarea id="input" name="input" rows="4" cols="50" oninput='update()'>Enter English text here</textarea>
+  <BR>
+  <BR>
+  <p id="output" style="white-space: pre-wrap;"> </p>
+  <BR>
+  <p> alternatively, here is the older, simpler translation:
+  <BR>
+  <BR>
+  <p id="output2" style="white-space: pre-wrap;"> </p>
+  
+	
   </div>
 
 </main>
