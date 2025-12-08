@@ -388,11 +388,15 @@ str = str.replace(/Ê/g, ""); // possibly �
 		</nav>
 		-->
 		<script>
-		    //const menuFile = 'menu.html';
-		    var menu = fetch('/menu.html');
-			var menuHTML = menu.text();
+
+		fetch('menu.html')
+		    .then(response => response.text())
+		    .then(menuHTML => {
+		        document.getElementById('menu-placeholder').innerHTML = menuHTML;
+		    })
+		    .catch(error => console.error('Error loading menu:', error));
 			
-			document.getElementById('menu-placeholder').innerHTML = menuHTML;
+		document.getElementById('menu-placeholder').innerHTML = menuHTML;
 		</script>
 
 <main role="main" class="container">
