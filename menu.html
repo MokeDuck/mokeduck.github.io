@@ -269,17 +269,18 @@
             dropdowns.forEach(dropdown => {
                 dropdown.addEventListener('click', function(e) {
                     // Only activate click-to-open on mobile screens
-                    if (window.innerWidth <= 768) {
+                    // if block removed // if (window.innerWidth <= 768) {
                         // Prevent navigating to the '#' link immediately
                         // so the menu can open first
                        // e.preventDefault(); 
                         this.classList.toggle('active');
-                    }
+                    //if block removed // }
                 });
             });
         });
 </script>
 
 <!-- End of the reusable navigation component -->
+
 
 
