@@ -1,3 +1,203 @@
+<style>
+	        /* --- MENU CSS (Copy this to your main stylesheet) --- */
+        
+        /* Navbar Container */
+        .navbar {
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: 70px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1000;
+        }
+
+        /* Logo */
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        /* Menu Links Container */
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        /* Individual Links */
+        .nav-links a {
+            text-decoration: none;
+            color: #ecf0f1;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* --- DROPDOWN STYLING --- */
+        
+        /* The container for the dropdown item */
+        .dropdown {
+            position: relative;
+        }
+
+        /* The arrow icon (simple CSS border trick) */
+        .arrow {
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(45deg);
+            margin-bottom: 2px;
+            transition: border-color 0.3s;
+        }
+        
+        .dropdown:hover .arrow {
+            border-color: #3498db;
+        }
+
+        /* The actual dropdown menu (hidden by default) */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%; /* Position right below the parent link */
+            left: 0;
+            background-color: #34495e;
+            width: 200px;
+            list-style: none;
+            display: none; /* Hidden */
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            padding: 10px 0;
+            /* Animation setup */
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        /* Show the dropdown on hover */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dropdown links */
+        .dropdown-menu li a {
+            padding: 10px 20px;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #2c3e50;
+            color: #3498db;
+        }
+
+        /* --- CTA BUTTON STYLE --- */
+        .btn-nav {
+            background-color: #3498db;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            color: white !important;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-nav:hover {
+            background-color: #2980b9 !important;
+            color: white !important;
+        }
+
+        /* --- MOBILE HAMBURGER MENU (Visual only for desktop view, Logic needed for mobile) --- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+        }
+
+        /* --- RESPONSIVE MEDIA QUERY --- */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #2c3e50;
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                display: none; /* Hidden on mobile by default */
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex; /* Show when JS adds 'active' class */
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+                justify-content: center;
+            }
+
+            /* Mobile Dropdown handling */
+            .dropdown:hover .dropdown-menu {
+                display: none; /* Disable hover on mobile */
+            }
+            
+            .dropdown-menu {
+                position: static; /* Stack naturally on mobile */
+                width: 100%;
+                background-color: #22303f;
+                box-shadow: none;
+                display: none;
+                opacity: 1;
+                transform: none;
+            }
+
+            .dropdown.active .dropdown-menu {
+                display: block; /* Show via JS click on mobile */
+            }
+            
+            .arrow {
+                margin-left: 10px;
+            }
+        }
+        
+        /* --- DUMMY CONTENT STYLES --- */
+        .content { padding: 40px; text-align: center; color: #333; }
+        .content h1 { margin-bottom: 20px; }
+</style>
+
 <!-- Start of the reusable navigation component -->
 <nav class="navbar">
     <!-- Logo -->
@@ -53,3 +253,4 @@
 </nav>
 
 <!-- End of the reusable navigation component -->
+
