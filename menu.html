@@ -251,6 +251,35 @@
 <!-- End of the reusable navigation component -->
     </ul>
 </nav>
+<script>
+	// Toggle Mobile Menu (Existing logic)
+             const mobileMenu = document.getElementById('mobile-menu');
+             const navLinks = document.querySelector('.nav-links');
+
+             if (mobileMenu && navLinks) {
+                mobileMenu.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+             }
+
+
+            // Mobile Dropdown Toggle (On mobile, we click instead of hover) (Existing logic)
+            const dropdowns = document.querySelectorAll('.dropdown');
+
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function(e) {
+                    // Only activate click-to-open on mobile screens
+                    if (window.innerWidth <= 768) {
+                        // Prevent navigating to the '#' link immediately
+                        // so the menu can open first
+                       // e.preventDefault(); 
+                        this.classList.toggle('active');
+                    }
+                });
+            });
+        });
+</script>
 
 <!-- End of the reusable navigation component -->
+
 
