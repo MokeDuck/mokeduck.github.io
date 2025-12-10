@@ -50,7 +50,20 @@ margin: 100px
   </head>
   <body>
     
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" id="entireNavHeader"></nav>
+    	<!-- ---------- START OF THE NAVBAR BLOCK ---------- -->
+	    <nav class="navbar navbar-expand-md navbar-light bg-blue fixed-top" id="menu-placeholder">
+		Menu Loading...
+		</nav>
+		
+		<script> // loads the menu element
+		fetch('menu.html')
+		    .then(response => response.text())
+		    .then(menuHTML => {
+		        document.getElementById('menu-placeholder').innerHTML = menuHTML;
+		    })
+		    .catch(error => console.error('Error loading menu:', error));
+		</script>
+		<!-- ---------- END OF THE NAVBAR BLOCK ---------- -->
 
 <main role="main" class="container">
 
