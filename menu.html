@@ -1,287 +1,77 @@
-<style>
-	        /* --- MENU CSS (Copy this to your main stylesheet) --- */
-        
-        /* Navbar Container */
-        .navbar {
-            background-color: #2c3e50;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-            height: 70px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 1000;
-        }
+<!-- Start of the new old navbar component -->
+<a class="navbar-brand" href="/">
+	<img src="favicon.ico" class="d-inline-block align-top" style="width: 34px; height: 34px;">
+	Hail Duckfather? 
+</a>
 
-      /* Logo */
-        .navbar-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-            letter-spacing: 1px;
-        }
+<button class="navbar-toggler"
+	type="button"
+	data-toggle="collapse"
+	data-target="#navbarsExampleDefault"
+	aria-controls="navbarsExampleDefault"
+	aria-expanded="false"
+	aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+</button>
 
-        /* Menu Links Container */
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-            align-items: center;
-        }
+<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	<ul class="navbar-nav mr-auto">
+	<li class="nav-item active">
+		<a class="nav-link" href="index.html">
+			(Home)
+			<span class="sr-only">(current)</span>
+		</a>
+	</li>
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			(Feathers Descended From Some Passing Duck)
+		</a>
+		<div class="dropdown-menu" id="dropdownPages" aria-labelledby="dropdown01">
+			<a class="dropdown-item" href="SillySong.html">
+				<img src="Referenced_Media/Feather.ico" class="d-inline-block align-top" style="width: 16px; height: 16px;">
+				&emsp; The Silly Song
+			</a>
+			<a class="dropdown-item" href="ThePen.html">
+				<img src="Referenced_Media/Feather.ico" class="d-inline-block align-top" style="width: 16px; height: 16px;">
+				&emsp; The Pen
+			</a>
+			<a class="dropdown-item" href="TheSpyglass.html">
+				<img src="Referenced_Media/Feather.ico" class="d-inline-block align-top" style="width: 16px; height: 16px;">
+				&emsp; The Spyglass
+			</a>
+			<a class="dropdown-item" href="DatabaseTesting.html">
+				<img src="Referenced_Media/Feather.ico" class="d-inline-block align-top" style="width: 16px; height: 16px;">
+				&emsp; Fun and Games
+			</a>
+			<a class="dropdown-item" href="DuckScribbles.html">
+				<img src="Referenced_Media/Feather.ico" class="d-inline-block align-top" style="width: 16px; height: 16px;">
+				&emsp; Duck Scratch (like chicken scratch but with ducks)
+			</a>
+	</li>
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			(The Great Quack)
+		</a>
+		<div class="dropdown-menu" id="dropdownPages" aria-labelledby="dropdown01">
+			<a class="dropdown-item" href="GreatQuack1.html">
+				<img src="Referenced_Media/Feather.ico" class="d-inline-block align-top" style="width: 16px; height: 16px;">
+				&emsp; The 1st Great Quack
+			</a>
+			<a class="dropdown-item" href="GreatQuack2.html">
+				<img src="Referenced_Media/Feather.ico" class="d-inline-block align-top" style="width: 16px; height: 16px;">
+				&emsp; The Origin of The Duckfather
+			</a>
+			<a class="dropdown-item" href="GreatQuack3.html">
+				<img src="Referenced_Media/Feather.ico" class="d-inline-block align-top" style="width: 16px; height: 16px;">
+				&emsp; The Duckfather's Hat
+			</a>
+	</ul>
+	<h6 style="color:grey">
+		(The official webbed-site of the Duckfather)
+	</h6>
+</div>
+<!-- End of the new old navbar component -->
 
-        /* Individual Links */
-        .nav-links a {
-            text-decoration: none;
-            color: #ecf0f1;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .nav-links a:hover {
-            color: #3498db;
-        }
-
-        /* --- DROPDOWN STYLING --- */
-        
-        /* The container for the dropdown item */
-        .dropdown {
-            position: relative;
-        }
-
-        /* The arrow icon (simple CSS border trick) */
-        .arrow {
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            display: inline-block;
-            padding: 3px;
-            transform: rotate(45deg);
-            margin-bottom: 2px;
-            transition: border-color 0.3s;
-        }
-        
-        .dropdown:hover .arrow {
-            border-color: #3498db;
-        }
-
-        /* The actual dropdown menu (hidden by default) */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%; /* Position right below the parent link */
-            left: 0;
-            background-color: #34495e;
-            width: 200px;
-            list-style: none;
-            display: none; /* Hidden */
-            border-radius: 4px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-            padding: 10px 0;
-            /* Animation setup */
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s, transform 0.3s;
-        }
-
-        /* Show the dropdown on hover */
-        .dropdown:hover .dropdown-menu {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Dropdown links */
-        .dropdown-menu li a {
-            padding: 10px 20px;
-            display: block;
-            font-size: 0.95rem;
-        }
-
-        .dropdown-menu li a:hover {
-            background-color: #2c3e50;
-            color: #3498db;
-        }
-
-        /* --- CTA BUTTON STYLE --- */
-        .btn-nav {
-            background-color: #3498db;
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
-            color: white !important;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-nav:hover {
-            background-color: #2980b9 !important;
-            color: white !important;
-        }
-
-        /* --- MOBILE HAMBURGER MENU (Visual only for desktop view, Logic needed for mobile) --- */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            border-radius: 2px;
-        }
-
-        /* --- RESPONSIVE MEDIA QUERY --- */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: #2c3e50;
-                flex-direction: column;
-                align-items: center;
-                gap: 0;
-                display: none; /* Hidden on mobile by default */
-                padding: 1rem 0;
-            }
-
-            .nav-links.active {
-                display: flex; /* Show when JS adds 'active' class */
-            }
-
-            .nav-links li {
-                width: 100%;
-                text-align: center;
-            }
-
-            .nav-links a {
-                padding: 1rem;
-                justify-content: center;
-            }
-
-            /* Mobile Dropdown handling */
-            .dropdown:hover .dropdown-menu {
-                display: none; /* Disable hover on mobile */
-            }
-            
-            .dropdown-menu {
-                position: static; /* Stack naturally on mobile */
-                width: 100%;
-                background-color: #22303f;
-                box-shadow: none;
-                display: none;
-                opacity: 1;
-                transform: none;
-            }
-
-            .dropdown.active .dropdown-menu {
-                display: block; /* Show via JS click on mobile */
-            }
-            
-            .arrow {
-                margin-left: 10px;
-            }
-        }
-        
-        /* --- DUMMY CONTENT STYLES --- */
-        .content { padding: 40px; text-align: center; color: #333; }
-        .content h1 { margin-bottom: 20px; }
-</style>
-
-<!-- Start of the reusable navigation component -->
-<nav class="navbar">
-    <!-- Logo -->
-    <a href="https://duckfather.de" class="navbar-logo">Home</a>
-
-    <!-- Hamburger Icon for Mobile -->
-    <div class="hamburger" id="mobile-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
-
-    <!-- Links Container -->
-    <ul class="nav-links">
-        <!-- Standard Links -->
-        <li><a href="https://duckfather.de/SillySong.html">The Silly Song</a></li>
-        <li><a href="https://duckfather.de/ThePen.html">The Pen</a></li>
-		<li><a href="https://duckfather.de/ThePen.html">The Pen</a></li>
-		<li><a href="https://duckfather.de/ThePen.html">The Spyglass</a></li>
-		<li><a href="https://duckfather.de/ThePen.html">Fun and Games</a></li>
-		<li><a href="https://duckfather.de/ThePen.html">Duck Scratch</a></li>
-
-        <!-- Dropdown 1 -->
-        <li class="dropdown" id="services-dropdown">
-            <a href="#">
-                Services <i class="arrow"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="#">placeholder 1</a></li>
-                <li><a href="#">placeholder 2</a></li>
-                <li><a href="#">placeholder 3</a></li>
-            </ul>
-        </li>
-
-        <!-- Dropdown 2 -->
-        <li class="dropdown" id="products-dropdown">
-            <a href="#">
-                Products <i class="arrow"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="#">placeholder a</a></li>
-                <li><a href="#">placeholder b</a></li>
-                <li><a href="#">placeholder c</a></li>
-            </ul>
-        </li>
-
-        <!-- Button -->
-        <li><a href="#" class="btn-nav">placeholder xyz</a></li>
-    </ul>
-</nav>
-<!-- End of the reusable navigation component -->
-    </ul>
-</nav>
-<script>
-/*	// Toggle Mobile Menu (Existing logic)
-             const mobileMenu = document.getElementById('mobile-menu');
-             const navLinks = document.querySelector('.nav-links');
-
-             if (mobileMenu && navLinks) {
-                mobileMenu.addEventListener('click', () => {
-                    navLinks.classList.toggle('active');
-                });
-             }
-
-
-            // Mobile Dropdown Toggle (On mobile, we click instead of hover) (Existing logic)
-            const dropdowns = document.querySelectorAll('.dropdown');
-
-            dropdowns.forEach(dropdown => {
-                dropdown.addEventListener('click', function(e) {
-                    // Only activate click-to-open on mobile screens
-                    // if block removed // if (window.innerWidth <= 768) {
-                        // Prevent navigating to the '#' link immediately
-                        // so the menu can open first
-                       // e.preventDefault(); 
-                        this.classList.toggle('active');
-                    //if block removed // }
-                });
-            });
-        });
-*/
-</script>
-
-<!-- End of the reusable navigation component -->
 
 
 
