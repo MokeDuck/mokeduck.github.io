@@ -9,20 +9,23 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	
-	<script src="./glaemscribe/js/glaemscribe.js"></script>
-    <script src="./glaemscribe/js/charsets/cirth_ds.cst.js"/>
-    <script src="./glaemscribe/js/modes/khuzdul-cirth-moria.glaem.js"/>
-    <script src="./glaemscribe/js/modes/english-cirth-espeak.glaem.js"/>
+    <script src="./glaemscribe/js/glaemscribe.js"></script>
+    <script src="./glaemscribe/js/charsets/cirth_ds.cst.js"></script>
+    <script src="./glaemscribe/js/modes/khuzdul-cirth-moria.glaem.js"></script>
+    <script src="./glaemscribe/js/modes/english-cirth-espeak.glaem.js"></script>
+	<script src="./glaemscribe/js/espeakng.for.glaemscribe.nowasm.sync.js"></script>
 
   </head>
 
-  <script>
+<script>
 // load glaemscribe
 Glaemscribe.resource_manager.load_modes()
 
 // Access loaded modes
 var cirth = Glaemscribe.resource_manager.loaded_modes["english-cirth-espeak"]
-  
+</script>
+
+<script>  
 function update() {
 
     var str = document.getElementById("input").value;
@@ -228,7 +231,7 @@ function replaceDanSmith(str) {
 	    <nav class="navbar navbar-expand-md navbar-light bg-blue fixed-top" id="menu-placeholder">
 		Menu Loading...
 		</nav>
-
+		
 		<script> // loads the menu element
 		fetch('menu.html')
 		    .then(response => response.text())
@@ -238,7 +241,6 @@ function replaceDanSmith(str) {
 		    .catch(error => console.error('Error loading menu:', error));
 		</script>
 		<!-- ---------- END OF THE NAVBAR BLOCK ---------- -->
-
 <main role="main" class="container">
 
   <div class="starter-template">
@@ -248,7 +250,7 @@ function replaceDanSmith(str) {
   An ancient mode, passed down through legends, made accessible by The Duckfather to his rightfully mindless followers.
   <br>
   <br>
-  (This tool uses the phonetic-to-cirth functionality of the "Glaemscribe" tool to translate english phonetics into J.R.R. Tolkien's runic writing system. It then converts the glaemscribe font (semi-random symbols masked with a rune font by Daniel Smith) into unicode symbols, which are just text and can be copy-and-pasted)
+  (This tool uses the phonetic-to-cirth functionality of the "Glaemscribe" tool to translate english phonetics into J.R.R. Tolkien's runic writing system. It then converts the glaemscribe font (semi-random symbols masked with a rune font by Daniel Smith) into unicode symbols, which are just text and can be copy-and-pasted) <BR> (Basically this writes English words using Lord of The Rings Dwarf symbols)
   </p>
 
 
@@ -272,6 +274,6 @@ function replaceDanSmith(str) {
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
- 
+
   </body>
 </html>
