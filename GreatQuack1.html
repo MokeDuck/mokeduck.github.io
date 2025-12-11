@@ -108,38 +108,9 @@ Many Quacks<BR>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     
-          <!-- The core Firebase JS SDK is always required and must be listed first -->
-	<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
-	<!-- TODO: Add SDKs for Firebase products that you want to use
-		https://firebase.google.com/docs/web/setup#available-libraries -->
-	<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
-	<script src="https://www.google.com/recaptcha/api.js"></script>
-	<!-- token: 6LfX_mAeAAAAAP5uyMQCC2kGaVQUsRaWqkRYkLyQ -->
-  
-  <script>
-	var firebaseConfig = {
-		apiKey: "AIzaSyC_kt8C2WVY5-NelCH2368ISKJYCMgqrVw",
-		authDomain: "duckfatherwebsite.firebaseapp.com",
-		databaseURL: "https://duckfatherwebsite.firebaseio.com",
-		projectId: "duckfatherwebsite",
-		storageBucket: "duckfatherwebsite.appspot.com",
-		messagingSenderId: "378512363534",
-		appId: "1:378512363534:web:5d079ba167130bce74ec5f",
-		measurementId: "G-XN358D4C48"
-	};
-	// Initialize Firebase
-	firebase.initializeApp(firebaseConfig);
-	firebase.analytics();
-	
-	var NavbarVar = document.getElementById('entireNavHeader');
-	var dbRefNavbar = firebase.database().ref().child('Navbar');
-	dbRefNavbar.on('value', snap => NavbarVar.innerHTML = snap.val());
-	
-  </script>
   
       
 </body>
 </html>
+
 
