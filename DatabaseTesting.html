@@ -37,36 +37,21 @@
 </style>
   </head>
   <body onpageshow="usersOnlineFunction(1)" onpagehide="usersOnlineFunction(-1)">
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" id="entireNavHeader">
-	<!--<a class="navbar-brand" href="/">
-		<img src="favicon.ico" class="d-inline-block align-top" style="width: 34px; height: 34px;"> Hail The Duckfather
-	</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-  <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">|Home|<span class="sr-only">(current)</span></a>
-      </li>
-
-
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> |Feathers Descended From Some Passing Duck| </a>
-        <div class="dropdown-menu" id="dropdownPages" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="SillySong.html"> The Silly Song </a>
-          <a class="dropdown-item" href="ThePen.html"> The Pen </a>
-          <a class="dropdown-item" href="TheSpyglass.html"> The Spyglass </a>
-          <a class="dropdown-item" href="DatabaseTesting.html"> Click this you loser </a>
-          <a class="dropdown-item" href="DuckScribbles.html"> duck scribbles </a>
-        </div>
-      </li>
-    </ul>
-
-    </form>
-  </div>-->
-</nav>
+	  
+		<!-- ---------- START OF THE NAVBAR BLOCK ---------- -->
+	    <nav class="navbar navbar-expand-md navbar-light bg-blue fixed-top" id="menu-placeholder">
+		Menu Loading...
+		</nav>
+		
+		<script> // loads the menu element
+		fetch('menu.html')
+		    .then(response => response.text())
+		    .then(menuHTML => {
+		        document.getElementById('menu-placeholder').innerHTML = menuHTML;
+		    })
+		    .catch(error => console.error('Error loading menu:', error));
+		</script>
+		<!-- ---------- END OF THE NAVBAR BLOCK ---------- -->
 
 <main role="main" class="container">
 
@@ -141,10 +126,6 @@ img {
 	var displayVar = document.getElementById('displayText');
 	var dbRef1 = firebase.database().ref().child('text');
 	dbRef1.on('value', snap => displayVar.innerText = snap.val());
-	
-	var NavbarVar = document.getElementById('entireNavHeader');
-	var dbRefNavbar = firebase.database().ref().child('Navbar');
-	dbRefNavbar.on('value', snap => NavbarVar.innerHTML = snap.val());
 	
 	var button1Var = document.getElementById('button1');
 	var dbRef2 = firebase.database().ref().child('button1');
