@@ -139,6 +139,30 @@
     '<link rel="stylesheet" href="' + LIBS.css.href + '" integrity="' + LIBS.css.integrity +
     '" crossorigin="anonymous">'
   );
+  document.write(
+    '<style>' +
+      /* 1. Page can never scroll or grow sideways (html AND body, plus clip as a modern fallback) */
+      'html,body{max-width:100%;overflow-x:hidden;overflow-x:clip;}' +
+
+      /* 2. Media/inputs can never exceed the screen */
+      'img,video,iframe,canvas,embed,object,textarea,input,select{max-width:100%;}' +
+      'textarea,input[type=text],input[type=search],input[type=email],input[type=password]{box-sizing:border-box;}' +
+      'pre{max-width:100%;overflow-x:auto;}' +
+
+      /* 3. Navbar pinned to the screen edges, immune to page width */
+      '#menu-placeholder{position:fixed;top:0;left:0;right:0;width:100%;max-width:100%;z-index:1030;}' +
+
+      /* 4. Mobile: dropdown panel locked under the top-right of the screen, scrolls internally */
+      '@media (max-width:767.98px){' +
+        '#menu-placeholder .navbar-collapse{' +
+          'position:fixed;top:3.5rem;right:0;' +
+          'width:min(22rem,100%);max-height:calc(100vh - 3.5rem);' +
+          'overflow-y:auto;background:#fff;padding:.5rem 1rem;' +
+          'box-shadow:0 .5rem 1rem rgba(0,0,0,.15);' +
+        '}' +
+      '}' +
+    '</style>'
+  );
 
   function init() {
     if (self.getAttribute('data-nav') !== 'false') {
