@@ -77,10 +77,6 @@ the Duckfather was still young, he swore to protect these creatures. And he's ne
 	firebase.initializeApp(firebaseConfig);
 	firebase.analytics();
 	
-	var NavbarVar = document.getElementById('entireNavHeader');
-	var dbRefNavbar = firebase.database().ref().child('Navbar');
-	dbRefNavbar.on('value', snap => NavbarVar.innerHTML = snap.val());
-	
   </script>
 
 </body>
