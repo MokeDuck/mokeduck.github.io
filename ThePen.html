@@ -4,17 +4,25 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Pen | Hail Duckfather?</title>
+    <meta name="description" content="Translate English into Tolkien-style runic writing with The Pen, powered by the Glaemscribe phonetic transcriber.">
+    <link rel="canonical" href="https://duckfather.de/ThePen.html">
+    <link rel="icon" href="favicon.ico">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Hail Duckfather?">
+    <meta property="og:title" content="The Pen | Hail Duckfather?">
+    <meta property="og:description" content="Translate English into Tolkien-style runic writing with The Pen, powered by the Glaemscribe phonetic transcriber.">
+    <meta property="og:url" content="https://duckfather.de/ThePen.html">
+    <meta property="og:image" content="https://duckfather.de/Referenced_Media/DuckFather.png">
+    <meta name="twitter:card" content="summary_large_image">
     <script src="site.js"></script>
-	
+
     <script src="./glaemscribe/js/glaemscribe.js"></script>
     <script src="./glaemscribe/js/charsets/cirth_ds.cst.js"></script>
     <script src="./glaemscribe/js/modes/khuzdul-cirth-moria.glaem.js"></script>
     <script src="./glaemscribe/js/modes/english-cirth-espeak.glaem.js"></script>
-	<script src="./glaemscribe/js/espeakng.for.glaemscribe.nowasm.sync.js"></script>
-
-  </head>
+  <script src="./glaemscribe/js/espeakng.for.glaemscribe.nowasm.sync.js"></script>
 
 <script>
 // load glaemscribe
@@ -223,39 +231,24 @@ function replaceDanSmith(str) {
 }
 
 </script>
+  </head>
 
-	
     <body onload='update()'>
 
-<main role="main" class="container">
+<main class="container">
 
   <div class="starter-template">
-  <h1><br><br>
-  The Pen
-  <br></h1><p> 
-  An ancient mode, passed down through legends, made accessible by The Duckfather to his rightfully mindless followers.
-  <br>
-  <br>
-  (This tool uses the phonetic-to-cirth functionality of the "Glaemscribe" tool to translate english phonetics into J.R.R. Tolkien's runic writing system. It then converts the glaemscribe font (semi-random symbols masked with a rune font by Daniel Smith) into unicode symbols, which are just text and can be copy-and-pasted) <BR> (Basically this writes English words using Lord of The Rings Dwarf symbols)
-  </p>
+  <h1>The Pen</h1><p>An ancient mode, passed down through legends, made accessible by The Duckfather to his rightfully mindless followers.</p>
+    <p>(This tool uses the phonetic-to-cirth functionality of the "Glaemscribe" tool to translate english phonetics into J.R.R. Tolkien's runic writing system. It then converts the glaemscribe font (semi-random symbols masked with a rune font by Daniel Smith) into unicode symbols, which are just text and can be copy-and-pasted) <BR> (Basically this writes English words using Lord of The Rings Dwarf symbols)</p>
 
+  <textarea id="input" name="input" rows="4" class="form-control" oninput='update()'>Enter English text here</textarea>
+  <p id="output" class="output-text"> </p>
+  <p>alternatively, here is my older, simpler transcription (no phonetics, 1-to-1 letters, easier to decode):</p>
+  <p id="output2" class="output-text"> </p>
 
-  <textarea id="input" name="input" rows="4" cols="50" oninput='update()'>Enter English text here</textarea>
-  <BR>
-  <BR>
-  <p id="output" style="white-space: pre-wrap;"> </p>
-  <BR>
-  <p> alternatively, here is my older, simpler transcription (no phonetics, 1-to-1 letters, easier to decode):
-  <BR>
-  <BR>
-  <p id="output2" style="white-space: pre-wrap;"> </p>
-  
-	
   </div>
 
 </main>
-
-
 
   </body>
 </html>

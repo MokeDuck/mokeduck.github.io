@@ -1,0 +1,106 @@
+/*
+ * site.css - shared styles for every page. Loaded by site.js after Bootstrap,
+ * so rules here override Bootstrap at equal specificity.
+ */
+
+/* ------------------------------------------------------------ no sideways growth */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;            /* modern browsers: clip without creating a scroll container */
+}
+img, video, iframe, canvas, embed, object, textarea, input, select {
+  max-width: 100%;
+}
+img { height: auto; }
+textarea, input[type=text], input[type=search], input[type=email], input[type=password] {
+  box-sizing: border-box;
+}
+pre { max-width: 100%; overflow-x: auto; }
+
+/* ------------------------------------------------------------------- navbar */
+/* Space for the fixed navbar. site.js keeps --site-nav-h in sync with its real height. */
+.has-site-nav body { padding-top: var(--site-nav-h, 3.75rem); }
+
+#site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  width: 100%;
+  max-width: 100%;
+  z-index: 1030;
+}
+
+/* Mobile: the menu is a panel pinned under the top-right corner, scrolling internally. */
+@media (max-width: 767.98px) {
+  #site-nav .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: min(22rem, 100%);
+    max-height: calc(100vh - var(--site-nav-h, 3.75rem));
+    max-height: calc(100dvh - var(--site-nav-h, 3.75rem));
+    overflow-y: auto;
+    padding: .5rem 1rem;
+    background: var(--bs-body-bg);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+  }
+  /* Bootstrap forces nowrap on these; the long labels must wrap inside the panel. */
+  #site-nav .dropdown-toggle,
+  #site-nav .dropdown-item {
+    white-space: normal;
+  }
+}
+
+/* --------------------------------------------------------------------- page */
+main.container {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  padding-top: 1rem;
+  padding-bottom: 3rem;
+}
+.container img { width: 100%; height: auto; }
+
+/* Invisible-ish link placed over an image (the duck's eye). */
+.hotspot {
+  position: absolute;
+  top: 25.5%;
+  left: 49.6%;
+  transform: translate(-50%, -50%);
+  padding: .8%;
+  background: #000;
+  border-radius: 5px;
+}
+.hotspot:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* Embedded video: 16:9, never wider than 560px. Wrap the iframe in .ratio.ratio-16x9.video-embed */
+.video-embed { max-width: 560px; }
+
+/* Text inputs on the tool pages. */
+main .form-control { max-width: 40rem; }
+.output-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* ------------------------------------------------------- Fun and Games page */
+.ttt-board {
+  display: grid;
+  width: max-content;
+  grid-template-columns: repeat(3, 3.5rem);
+  gap: .25rem;
+  margin: .5rem 0 1rem;
+}
+.ttt-board .buttonDuck {
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0;
+  border: 0;
+  font-size: 1.5rem;
+  color: #333;
+  background: antiquewhite;
+  cursor: pointer;
+}
+.quack-btn {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
