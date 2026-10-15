@@ -311,7 +311,7 @@
     var displayVar = document.getElementById('displayText');
     var quackText = document.getElementById('quackText');
     var quackStatus = document.getElementById('quackStatus');
-    var quackButton = document.getElementById('quackButton');
+    var quackButton = document.getElementById('quackText');
 
     database.ref('text').on('value', function (snap) {
       displayVar.innerText = snap.val() || 'Ducks are the best';
