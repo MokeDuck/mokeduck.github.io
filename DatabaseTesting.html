@@ -136,72 +136,75 @@
       font-size: .95rem;
     }
 
-    .quack-card {
+    .games-page .quack-card {
       position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
       overflow: visible;
       margin-top: 1.5rem;
-      min-height: 260px;
+      min-height: 250px;
+      padding-left: clamp(1.25rem, 5vw, 3rem);
     }
 
-    .quack-content {
+    .games-page .quack-content {
       position: relative;
       z-index: 1;
-      margin-left: 135px;
+      width: min(100%, 700px);
+      margin-left: auto;
+      margin-right: 0;
     }
 
-    .painted-duck {
+    /* Override the shared site stylesheet's broad container-image width rule. */
+    .games-page .painted-duck {
       position: absolute;
       z-index: 2;
-      width: clamp(150px, 23vw, 245px);
-      max-height: 310px;
+      display: block;
+      width: clamp(120px, 19vw, 205px);
+      max-width: none;
+      max-height: 260px;
+      height: auto;
       object-fit: contain;
-      left: -72px;
-      bottom: -10px;
-      transform: rotate(-11deg);
+      left: -35px;
+      bottom: -4px;
+      transform: rotate(12deg);
       transform-origin: bottom center;
       pointer-events: none;
     }
 
-    .quack-bubble {
+    .games-page .quack-bubble {
       position: relative;
-      min-height: 92px;
+      min-height: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 1.25rem;
       margin-bottom: 1.25rem;
-      border: 1px solid var(--line);
-      border-radius: 1.25rem;
+      border: 2px solid var(--ink);
+      border-radius: 1.5rem;
       background: #fff;
       font-size: clamp(1.1rem, 2.5vw, 1.55rem);
       font-weight: 750;
+      line-height: 1.35;
       overflow-wrap: anywhere;
       white-space: pre-wrap;
+      box-shadow: 4px 4px 0 var(--paper-deep);
     }
 
-    .quack-bubble::after {
+    .games-page .quack-bubble::after {
       content: "";
       position: absolute;
-      left: -9px;
-      bottom: 22px;
-      width: 17px;
-      height: 17px;
+      left: 34px;
+      bottom: -12px;
+      width: 22px;
+      height: 22px;
       background: #fff;
-      border-left: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+      border-right: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
       transform: rotate(45deg);
     }
 
-    .quack-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .65rem;
-    }
-
-    .reset-button {
-      background: transparent;
-      color: var(--ink);
-    }
+    .quack-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+    .reset-button { background: transparent; color: var(--ink); }
 
     .games-note {
       margin: 1rem 0 0;
@@ -209,43 +212,34 @@
       font-size: .9rem;
     }
 
+    .quack-status {
+      min-height: 1.2em;
+      margin: .65rem 0 0;
+      color: #8b2e22;
+      font-size: .9rem;
+    }
+
     @media (max-width: 760px) {
-      .games-page {
-        padding: 1.5rem 1rem 3rem;
-      }
-
-      .games-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .quack-content {
-        margin-left: 100px;
-      }
-
-      .painted-duck {
-        width: 165px;
-        left: -55px;
+      .games-page { padding: 1.5rem 1rem 3rem; }
+      .games-layout { grid-template-columns: 1fr; }
+      .games-page .quack-card { min-height: 225px; padding-left: 1rem; }
+      .games-page .quack-content { width: calc(100% - 70px); }
+      .games-page .painted-duck {
+        width: 135px;
+        max-height: 210px;
+        left: -35px;
         bottom: 0;
+        transform: rotate(12deg);
       }
-
-      .quack-card {
-        min-height: 230px;
-      }
+      .games-page .quack-bubble::after { left: 20px; }
     }
 
     @media (max-width: 420px) {
-      .quack-content {
-        margin-left: 65px;
-      }
-
-      .painted-duck {
-        width: 125px;
-        left: -38px;
-      }
-
-      .games-page .game-button {
-        padding: .7rem .85rem;
-      }
+      .games-page .quack-card { padding: 1rem; padding-left: .75rem; }
+      .games-page .quack-content { width: calc(100% - 45px); }
+      .games-page .painted-duck { width: 100px; left: -25px; }
+      .games-page .game-button { padding: .7rem .85rem; }
+      .games-page .quack-bubble { padding: .85rem; }
     }
   </style>
 </head>
@@ -286,10 +280,11 @@
         <h2 id="quack-heading">Funny text here</h2>
         <div class="quack-bubble" id="quackText" aria-live="polite">quack</div>
         <div class="quack-actions">
-          <button class="game-button game-button-dark" type="button" onclick="quackFunction()">QUACK!</button>
+          <button class="game-button game-button-dark" id="quackButton" type="button" onclick="quackFunction()">QUACK!</button>
           <button class="game-button reset-button" type="button" onclick="resetQuacks()">Reset quacks</button>
         </div>
         <p class="games-note">Funny text here</p>
+        <p class="quack-status" id="quackStatus" role="status" aria-live="polite"></p>
       </div>
     </section>
   </main>
@@ -316,6 +311,8 @@
     var database = firebase.database();
     var displayVar = document.getElementById('displayText');
     var quackText = document.getElementById('quackText');
+    var quackStatus = document.getElementById('quackStatus');
+    var quackButton = document.getElementById('quackButton');
 
     database.ref('text').on('value', function (snap) {
       displayVar.innerText = snap.val() || 'Ducks are the best';
@@ -359,14 +356,26 @@
     }
 
     function quackFunction() {
+      quackButton.disabled = true;
+      quackStatus.innerText = '';
       database.ref('button1').transaction(function (current) {
-        current = (typeof current === 'string' && current.trim()) ? current.trim() : 'quack';
-        return current + ' quack';
-      });
+        if (typeof current !== 'string' || !current.trim()) return 'quack';
+        return current.trimEnd() + ' quack';
+      }, function (error, committed) {
+        quackButton.disabled = false;
+        if (error) {
+          quackStatus.innerText = 'Could not add a quack: ' + error.message;
+        } else if (!committed) {
+          quackStatus.innerText = 'Quack was not saved. Try again.';
+        }
+      }, false);
     }
 
     function resetQuacks() {
-      database.ref('button1').set('quack');
+      quackStatus.innerText = '';
+      database.ref('button1').set('quack', function (error) {
+        if (error) quackStatus.innerText = 'Could not reset quacks: ' + error.message;
+      });
     }
   </script>
 </body>
