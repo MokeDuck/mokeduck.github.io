@@ -278,9 +278,8 @@
       <img class="painted-duck" src="Referenced_Media/PaintedDuck1.png" alt="Painted duck peeking in from the left">
       <div class="quack-content">
         <h2 id="quack-heading">Funny text here</h2>
-        <div class="quack-bubble" id="quackText" aria-live="polite">quack</div>
+        <button class="quack-bubble" id="quackText" type="button" aria-live="polite" onclick="quackFunction()">quack</button>
         <div class="quack-actions">
-          <button class="game-button game-button-dark" id="quackButton" type="button" onclick="quackFunction()">QUACK!</button>
           <button class="game-button reset-button" type="button" onclick="resetQuacks()">Reset quacks</button>
         </div>
         <p class="games-note">Funny text here</p>
