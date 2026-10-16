@@ -15,10 +15,10 @@
   color: #fff;
 }
 .games-card {
-  background: ##b8aa95;
+  background: #b8aa95;
   border: 1px solid rgba(60, 50, 30, .1);
   border-radius: 1rem;
-  /* box-shadow: 0 .5rem 1.25rem rgba(60, 50, 30, .08); */
+  box-shadow: 0 .5rem 1.25rem rgba(60, 50, 30, .08);
   padding: 1.1rem 1.4rem;
 }
 button { touch-action: manipulation; }   /* rapid taps must not trigger double-tap zoom */
