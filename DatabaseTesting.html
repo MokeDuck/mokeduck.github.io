@@ -1,381 +1,313 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fun and Games | Hail Duckfather?</title>
-  <meta name="description" content="Shared live games: ducks versus rats, duck-tac-toe, and a shared quack counter.">
-  <link rel="canonical" href="https://duckfather.de/DatabaseTesting.html">
-  <link rel="icon" href="favicon.ico">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Hail Duckfather?">
-  <meta property="og:title" content="Fun and Games | Hail Duckfather?">
-  <meta property="og:description" content="Shared live games: ducks versus rats, duck-tac-toe, and a shared quack counter.">
-  <meta property="og:url" content="https://duckfather.de/DatabaseTesting.html">
-  <meta property="og:image" content="https://duckfather.de/Referenced_Media/DuckFather.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <script src="site.js"></script>
-  <style>
-    body {
-      background: #fff;
-      color: #29271f;
-    }
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fun and Games | Hail Duckfather?</title>
+    <meta name="description" content="Shared live games: argue ducks versus rats, play duck-tac-toe and quack along with everyone else on the page.">
+    <link rel="canonical" href="https://duckfather.de/DatabaseTesting.html">
+    <link rel="icon" href="favicon.ico">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Hail Duckfather?">
+    <meta property="og:title" content="Fun and Games | Hail Duckfather?">
+    <meta property="og:description" content="Shared live games: argue ducks versus rats, play duck-tac-toe and quack along with everyone else on the page.">
+    <meta property="og:url" content="https://duckfather.de/DatabaseTesting.html">
+    <meta property="og:image" content="https://duckfather.de/Referenced_Media/DuckFather.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="site.js"></script>
+    <link rel="stylesheet" href="games.css">
+  </head>
+  <body class="games-page" onpageshow="usersOnlineFunction(1)" onpagehide="usersOnlineFunction(-1)">
 
-    .games-page {
-      --paper: #f6f0e4;
-      --paper-deep: #e9dfcd;
-      --ink: #29271f;
-      --muted: #68604e;
-      --line: #d6cbb6;
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 4rem;
-    }
+<main class="games">
 
-    .games-heading {
-      margin: 0 0 2rem;
-      font-size: clamp(2.25rem, 6vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.055em;
-      text-transform: lowercase;
-    }
+  <header class="container games-header">
+    <h1 class="games-title">Below is an absolutely undisputed unquestionable fact</h1>
+  </header>
 
-    .games-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, .85fr);
-      gap: 1.5rem;
-      align-items: start;
-    }
-
-    .games-card {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 1.25rem;
-      padding: clamp(1.1rem, 3vw, 2rem);
-      box-shadow: 0 8px 24px rgb(41 39 31 / 5%);
-    }
-
-    .games-card h2 {
-      font-size: clamp(1.25rem, 3vw, 1.7rem);
-      font-weight: 750;
-      letter-spacing: -.025em;
-      margin: 0 0 1.25rem;
-    }
-
-    .vote-card {
-      min-height: 220px;
-    }
-
-    .vote-result {
-      font-size: clamp(1.5rem, 4vw, 2.4rem);
-      font-weight: 800;
-      line-height: 1.15;
-      margin: .5rem 0 1.5rem;
-      overflow-wrap: anywhere;
-    }
-
-    .games-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .75rem;
-    }
-
-    .games-page .game-button {
-      border: 1px solid var(--ink);
-      border-radius: .75rem;
-      padding: .75rem 1.15rem;
-      font-weight: 700;
-      transition: transform .15s ease, background-color .15s ease;
-    }
-
-    .games-page .game-button:hover {
-      transform: translateY(-2px);
-    }
-
-    .game-button-dark {
-      background: var(--ink);
-      color: white;
-    }
-
-    .game-button-light {
-      background: #fff;
-      color: var(--ink);
-    }
-
-    .game-button-light:hover {
-      background: var(--paper-deep);
-    }
-
-    .ttt-board {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: .5rem;
-      width: min(100%, 330px);
-      margin: 0 auto 1rem;
-    }
-
-    .games-page .buttonDuck {
-      aspect-ratio: 1;
-      min-width: 0;
-      border: 1px solid var(--line);
-      border-radius: .75rem;
-      background: #fff;
-      color: var(--ink);
-      font-size: clamp(1.5rem, 5vw, 2.25rem);
-      font-weight: 700;
-    }
-
-    .games-page .buttonDuck:hover {
-      background: var(--paper-deep);
-    }
-
-    .online-count {
-      margin: 1rem 0 0;
-      color: var(--muted);
-      text-align: center;
-      font-size: .95rem;
-    }
-
-    .games-page .quack-card {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      overflow: visible;
-      margin-top: 1.5rem;
-      min-height: 250px;
-      padding-left: clamp(1.25rem, 5vw, 3rem);
-    }
-
-    .games-page .quack-content {
-      position: relative;
-      z-index: 1;
-      width: min(100%, 700px);
-      margin-left: auto;
-      margin-right: 0;
-    }
-
-    /* Override the shared site stylesheet's broad container-image width rule. */
-    .games-page .painted-duck {
-      position: absolute;
-      z-index: 2;
-      display: block;
-      width: clamp(120px, 19vw, 205px);
-      max-width: none;
-      max-height: 260px;
-      height: auto;
-      object-fit: contain;
-      left: -35px;
-      bottom: -4px;
-      transform: rotate(12deg);
-      transform-origin: bottom center;
-      pointer-events: none;
-    }
-
-    .games-page .quack-bubble {
-      position: relative;
-      min-height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.25rem;
-      margin-bottom: 1.25rem;
-      border: 2px solid var(--ink);
-      border-radius: 1.5rem;
-      background: #fff;
-      font-size: clamp(1.1rem, 2.5vw, 1.55rem);
-      font-weight: 750;
-      line-height: 1.35;
-      overflow-wrap: anywhere;
-      white-space: pre-wrap;
-      box-shadow: 4px 4px 0 var(--paper-deep);
-    }
-
-    .games-page .quack-bubble::after {
-      content: "";
-      position: absolute;
-      left: 34px;
-      bottom: -12px;
-      width: 22px;
-      height: 22px;
-      background: #fff;
-      border-right: 2px solid var(--ink);
-      border-bottom: 2px solid var(--ink);
-      transform: rotate(45deg);
-    }
-
-    .quack-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
-    .reset-button { background: transparent; color: var(--ink); transform: translateX(150px); }
-
-    .games-note {
-      margin: 1rem 0 0 150px;
-      color: var(--muted);
-      font-size: .9rem;
-    }
-
-    .quack-status {
-      min-height: 1.2em;
-      margin: .65rem 0 0;
-      color: #8b2e22;
-      font-size: .9rem;
-    }
-
-    @media (max-width: 760px) {
-      .games-page { padding: 1.5rem 1rem 3rem; }
-      .games-layout { grid-template-columns: 1fr; }
-      .games-page .quack-card { min-height: 225px; padding-left: 1rem; }
-      .games-page .quack-content { width: calc(100% - 70px); }
-      .games-page .painted-duck {
-        width: 135px;
-        max-height: 210px;
-        left: -35px;
-        bottom: 0;
-        transform: rotate(12deg);
-      }
-      .games-page .quack-bubble::after { left: 20px; }
-    }
-
-    @media (max-width: 420px) {
-      .games-page .quack-card { padding: 1rem; padding-left: .75rem; }
-      .games-page .quack-content { width: calc(100% - 45px); }
-      .games-page .painted-duck { width: 100px; left: -25px; }
-      .games-page .game-button { padding: .7rem .85rem; }
-      .games-page .quack-bubble { padding: .85rem; }
-    }
-  </style>
-</head>
-<body onpageshow="usersOnlineFunction(1)" onpagehide="usersOnlineFunction(-1)">
-  <main class="container games-page">
-    <h1 class="games-heading">Fun and Games</h1>
-
-    <div class="games-layout">
-      <section class="games-card vote-card" aria-labelledby="vote-heading">
-        <h2 id="vote-heading">Here is a pretty authoritative fact (it's on the internet)</h2>
-        <p class="vote-result" id="displayText" aria-live="polite">Ducks are the best</p>
-        <div class="games-buttons">
-          <button class="game-button game-button-dark" type="button" onclick="duckFunction()">Ducks!</button>
-          <button class="game-button game-button-light" type="button" onclick="ratFunction()">Rats!</button>
-        </div>
-      </section>
-
-      <section class="games-card" aria-labelledby="ttt-heading">
-        <h2 id="ttt-heading">duck tac toe</h2>
-        <div class="ttt-board" aria-label="Duck-tac-toe board">
-          <button class="buttonDuck" id="1a" type="button" onclick="playCell('_1a')" aria-label="Top left square">-</button>
-          <button class="buttonDuck" id="1b" type="button" onclick="playCell('_1b')" aria-label="Top middle square">-</button>
-          <button class="buttonDuck" id="1c" type="button" onclick="playCell('_1c')" aria-label="Top right square">-</button>
-          <button class="buttonDuck" id="2a" type="button" onclick="playCell('_2a')" aria-label="Middle left square">-</button>
-          <button class="buttonDuck" id="2b" type="button" onclick="playCell('_2b')" aria-label="Center square">-</button>
-          <button class="buttonDuck" id="2c" type="button" onclick="playCell('_2c')" aria-label="Middle right square">-</button>
-          <button class="buttonDuck" id="3a" type="button" onclick="playCell('_3a')" aria-label="Bottom left square">-</button>
-          <button class="buttonDuck" id="3b" type="button" onclick="playCell('_3b')" aria-label="Bottom middle square">-</button>
-          <button class="buttonDuck" id="3c" type="button" onclick="playCell('_3c')" aria-label="Bottom right square">-</button>
-        </div>
-        <p class="online-count">friends watching: <span id="usersOnline">__</span></p>
-      </section>
-    </div>
-
-    <section class="games-card quack-card" aria-labelledby="quack-heading">
-      <img class="painted-duck" src="Referenced_Media/PaintedDuck1.png" alt="Painted duck peeking in from the left">
-      <div class="quack-content">
-        <h2 id="quack-heading">Wise words...</h2>
-        <button class="quack-bubble" id="quackText" type="button" aria-live="polite" onclick="quackFunction()">quack</button>
-        <div class="quack-actions">
-          <button class="game-button reset-button" type="button" onclick="resetQuacks()">Reset quacks</button>
-        </div>
-        <p class="games-note">...from a wise quacker</p>
-        <p class="quack-status" id="quackStatus" role="status" aria-live="polite"></p>
+  <section class="stage" aria-label="The quacking duck and the official fact">
+    <div class="stage-grid">
+      <div class="duck-col">
+        <picture>
+          <source srcset="Referenced_Media/PaintedDuck1.webp" type="image/webp">
+          <img id="duck" class="duck" src="Referenced_Media/PaintedDuck1.png" alt="A painted white duck leaning in from the left edge of the screen" width="1112" height="1415">
+        </picture>
       </div>
-    </section>
-  </main>
 
+      <div class="bubble-col">
+        <div class="bubble" id="bubble"><div class="bubble-text" id="button1">quack</div></div>
+        <div class="bubble-actions">
+          <button class="btn btn-dark btn-lg px-4" id="quackBtn" onclick="quackFunction()">quack!</button>
+          <button class="btn btn-outline-dark btn-lg" id="resetBtn" onclick="resetQuackFunction()">reset</button>
+        </div>
+        <p class="bubble-hint" id="quackHint" hidden>The duck is out of breath. Press reset.</p>
+      </div>
+
+      <div class="fact-col">
+        <aside class="fact-card games-card">
+          <p class="card-label">the official fact</p>
+          <h2 title="this text is the same no matter which device views this page" id="displayText">Ducks are the best</h2>
+          <div>
+            <button class="btn btn-outline-dark me-2" onclick="duckFunction()">Ducks!</button>
+            <button class="btn btn-outline-dark" onclick="ratFunction()">Rats!</button>
+          </div>
+        </aside>
+        <div class="watchers">friends watching: <span id="usersOnline">__</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container games-lower">
+    <div class="ttt-card games-card">
+      <p class="card-label">duck tac toe</p>
+      <div class="ttt-board">
+        <button class="buttonDuck" id="1a" onclick="_1aFunction()">-</button>
+        <button class="buttonDuck" id="1b" onclick="_1bFunction()">-</button>
+        <button class="buttonDuck" id="1c" onclick="_1cFunction()">-</button>
+        <button class="buttonDuck" id="2a" onclick="_2aFunction()">-</button>
+        <button class="buttonDuck" id="2b" onclick="_2bFunction()">-</button>
+        <button class="buttonDuck" id="2c" onclick="_2cFunction()">-</button>
+        <button class="buttonDuck" id="3a" onclick="_3aFunction()">-</button>
+        <button class="buttonDuck" id="3b" onclick="_3bFunction()">-</button>
+        <button class="buttonDuck" id="3c" onclick="_3cFunction()">-</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
   <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+
   <script>
-    var firebaseConfig = {
-      apiKey: "AIzaSyC_kt8C2WVY5-NelCH2368ISKJYCMgqrVw",
-      authDomain: "duckfatherwebsite.firebaseapp.com",
-      databaseURL: "https://duckfatherwebsite.firebaseio.com",
-      projectId: "duckfatherwebsite",
-      storageBucket: "duckfatherwebsite.appspot.com",
-      messagingSenderId: "378512363534",
-      appId: "1:378512363534:web:5d079ba167130bce74ec5f",
-      measurementId: "G-XN358D4C48"
-    };
+	// Your web app's Firebase configuration
+	var firebaseConfig = {
+		apiKey: "AIzaSyC_kt8C2WVY5-NelCH2368ISKJYCMgqrVw",
+		authDomain: "duckfatherwebsite.firebaseapp.com",
+		databaseURL: "https://duckfatherwebsite.firebaseio.com",
+		projectId: "duckfatherwebsite",
+		storageBucket: "duckfatherwebsite.appspot.com",
+		messagingSenderId: "378512363534",
+		appId: "1:378512363534:web:5d079ba167130bce74ec5f",
+		measurementId: "G-XN358D4C48"
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
+	
+	
+	var displayVar = document.getElementById('displayText');
+	var dbRef1 = firebase.database().ref().child('text');
+	dbRef1.on('value', snap => displayVar.innerText = snap.val());
+	
+	// ---- The quacking duck: the shared text lives at /button1 and is shown in the speech bubble ----
+	var MAX_QUACK_LENGTH = 1800;   // stops the shared text growing without limit
+	var button1Var = document.getElementById('button1');   // the speech bubble
+	var quackBtn = document.getElementById('quackBtn');
+	var quackHint = document.getElementById('quackHint');
+	var bubbleVar = document.getElementById('bubble');   // the bubble's outer box (animated)
+	var duckVar = document.getElementById('duck');
+	var firstQuackLoad = true;
+	var dbRef2 = firebase.database().ref().child('button1');
+	dbRef2.on('value', snap => {
+		var text = String(snap.val() || "quack");
+		var changed = button1Var.textContent !== text;
+		button1Var.textContent = text;
+		var full = text.length >= MAX_QUACK_LENGTH;
+		quackBtn.disabled = full;
+		quackHint.hidden = !full;
+		if (changed && !firstQuackLoad) {
+			[bubbleVar, duckVar].forEach(el => {
+				el.classList.remove('quacked');
+				void el.offsetWidth;   // restart the animation
+				el.classList.add('quacked');
+			});
+		}
+		firstQuackLoad = false;
+	});
+	
+	var usersOnlineVar = document.getElementById('usersOnline');
+	var dbRef_usersOnline = firebase.database().ref().child('usersOnline');
+	dbRef_usersOnline.on('value', snap => usersOnlineVar.innerText = snap.val());
+	
+	
+	function usersOnlineFunction(comeOrGo) {
+		firebase.database().ref().update({usersOnline: firebase.database.ServerValue.increment(comeOrGo)});
+	}
+	
+	// These control each function of the TicTacToe board --------------------------------------------------------------------------------------------
+	
+	var _1aVar = document.getElementById('1a');
+	var dbRef1a = firebase.database().ref().child('_1a');
+	dbRef1a.on('value', snap => _1aVar.innerText = snap.val());
+	
+	function _1aFunction() {
+		if (_1aVar.innerText == "--"){
+		firebase.database().ref().update({_1a:"🦆"});
+		}
+		else if (_1aVar.innerText == "🦆") {
+		firebase.database().ref().update({_1a:"🐀"});
+		}
+		else {
+		firebase.database().ref().update({_1a:"--"});
+		}
+	}
+	
+	var _1bVar = document.getElementById('1b');
+	var dbRef1b = firebase.database().ref().child('_1b');
+	dbRef1b.on('value', snap => _1bVar.innerText = snap.val());
+	
+	function _1bFunction() {
+		if (_1bVar.innerText == "--"){
+		firebase.database().ref().update({_1b:"🦆"});
+		}
+		else if (_1bVar.innerText == "🦆") {
+		firebase.database().ref().update({_1b:"🐀"});
+		}
+		else {
+		firebase.database().ref().update({_1b:"--"});
+		}
+	}
+	
+	var _1cVar = document.getElementById('1c');
+	var dbRef1c = firebase.database().ref().child('_1c');
+	dbRef1c.on('value', snap => _1cVar.innerText = snap.val());
+	
+	function _1cFunction() {
+		if (_1cVar.innerText == "--"){
+		firebase.database().ref().update({_1c:"🦆"});
+		}
+		else if (_1cVar.innerText == "🦆") {
+		firebase.database().ref().update({_1c:"🐀"});
+		}
+		else {
+		firebase.database().ref().update({_1c:"--"});
+		}
+	}
+	
+	var _2aVar = document.getElementById('2a');
+	var dbRef2a = firebase.database().ref().child('_2a');
+	dbRef2a.on('value', snap => _2aVar.innerText = snap.val());
+	
+	function _2aFunction() {
+		if (_2aVar.innerText == "--"){
+		firebase.database().ref().update({_2a:"🦆"});
+		}
+		else if (_2aVar.innerText == "🦆") {
+		firebase.database().ref().update({_2a:"🐀"});
+		}
+		else {
+		firebase.database().ref().update({_2a:"--"});
+		}
+	}
+	
+	var _2bVar = document.getElementById('2b');
+	var dbRef2b = firebase.database().ref().child('_2b');
+	dbRef2b.on('value', snap => _2bVar.innerText = snap.val());
+	
+	function _2bFunction() {
+		if (_2bVar.innerText == "--"){
+		firebase.database().ref().update({_2b:"🦆"});
+		}
+		else if (_2bVar.innerText == "🦆") {
+		firebase.database().ref().update({_2b:"🐀"});
+		}
+		else {
+		firebase.database().ref().update({_2b:"--"});
+		}
+	}
+	
+	var _2cVar = document.getElementById('2c');
+	var dbRef2c = firebase.database().ref().child('_2c');
+	dbRef2c.on('value', snap => _2cVar.innerText = snap.val());
+	
+	function _2cFunction() {
+		if (_2cVar.innerText == "--"){
+		firebase.database().ref().update({_2c:"🦆"});
+		}
+		else if (_2cVar.innerText == "🦆") {
+		firebase.database().ref().update({_2c:"🐀"});
+		}
+		else {
+		firebase.database().ref().update({_2c:"--"});
+		}
+	}
+	
+	var _3aVar = document.getElementById('3a');
+	var dbRef3a = firebase.database().ref().child('_3a');
+	dbRef3a.on('value', snap => _3aVar.innerText = snap.val());
+	
+	function _3aFunction() {
+		if (_3aVar.innerText == "--"){
+		firebase.database().ref().update({_3a:"🦆"});
+		}
+		else if (_3aVar.innerText == "🦆") {
+		firebase.database().ref().update({_3a:"🐀"});
+		}
+		else {
+		firebase.database().ref().update({_3a:"--"});
+		}
+	}
+	
+	var _3bVar = document.getElementById('3b');
+	var dbRef3b = firebase.database().ref().child('_3b');
+	dbRef3b.on('value', snap => _3bVar.innerText = snap.val());
+	
+	function _3bFunction() {
+		if (_3bVar.innerText == "--"){
+		firebase.database().ref().update({_3b:"🦆"});
+		}
+		else if (_3bVar.innerText == "🦆") {
+		firebase.database().ref().update({_3b:"🐀"});
+		}
+		else {
+		firebase.database().ref().update({_3b:"--"});
+		}
+	}
+	
+	var _3cVar = document.getElementById('3c');
+	var dbRef3c = firebase.database().ref().child('_3c');
+	dbRef3c.on('value', snap => _3cVar.innerText = snap.val());
+	
+	function _3cFunction() {
+		if (_3cVar.innerText == "--"){
+		firebase.database().ref().update({_3c:"🦆"});
+		}
+		else if (_3cVar.innerText == "🦆") {
+		firebase.database().ref().update({_3c:"🐀"});
+		}
+		else {
+		firebase.database().ref().update({_3c:"--"});
+		}
+	}
+	
+	// End of the TicTacToe board ---------------------------------------------------------------------------------
+	
+		
 
-    firebase.initializeApp(firebaseConfig);
-    if (firebase.analytics) firebase.analytics();
+function duckFunction() {
+  firebase.database().ref().update({text: "Ducks are the best"});
+}
+function ratFunction() {
+  firebase.database().ref().update({text: "Rats are the best"});
+}
+function quackFunction() {
+  // A transaction makes simultaneous quacks from several visitors add up instead of overwriting each other.
+  firebase.database().ref().child('button1').transaction(function (current) {
+    current = current || "quack";
+    if (current.length >= MAX_QUACK_LENGTH) { return; }   // returning nothing cancels the write
+    return "quack " + current;
+  });
+}
+function resetQuackFunction() {
+  firebase.database().ref().update({button1: "quack"});
+}
+	</script>
 
-    var database = firebase.database();
-    var displayVar = document.getElementById('displayText');
-    var quackText = document.getElementById('quackText');
-    var quackStatus = document.getElementById('quackStatus');
-    var quackButton = document.getElementById('quackText');
-
-    database.ref('text').on('value', function (snap) {
-      displayVar.innerText = snap.val() || 'Ducks are the best';
-    });
-
-    database.ref('button1').on('value', function (snap) {
-      quackText.innerText = snap.val() || 'quack';
-    });
-
-    database.ref('usersOnline').on('value', function (snap) {
-      document.getElementById('usersOnline').innerText = snap.val();
-    });
-
-    function usersOnlineFunction(comeOrGo) {
-      database.ref().update({ usersOnline: firebase.database.ServerValue.increment(comeOrGo) });
-    }
-
-    function duckFunction() {
-      database.ref().update({ text: 'Ducks are the best' });
-    }
-
-    function ratFunction() {
-      database.ref().update({ text: 'Rats are the best' });
-    }
-
-    var cellIds = ['_1a', '_1b', '_1c', '_2a', '_2b', '_2c', '_3a', '_3b', '_3c'];
-    cellIds.forEach(function (key) {
-      database.ref(key).on('value', function (snap) {
-        var button = document.getElementById(key.slice(1));
-        if (button) button.innerText = snap.val() || '--';
-      });
-    });
-
-    function playCell(key) {
-      var cellRef = database.ref(key);
-      cellRef.transaction(function (current) {
-        if (current === '--' || current === null) return '🦆';
-        if (current === '🦆') return '🐀';
-        return '--';
-      });
-    }
-
-    function quackFunction() {
-      quackButton.disabled = true;
-      quackStatus.innerText = '';
-      database.ref('button1').transaction(function (current) {
-        if (typeof current !== 'string' || !current.trim()) return 'quack';
-        return current.trimEnd() + ' quack';
-      }, function (error, committed) {
-        quackButton.disabled = false;
-        if (error) {
-          quackStatus.innerText = 'Could not add a quack: ' + error.message;
-        } else if (!committed) {
-          quackStatus.innerText = 'Quack was not saved. Try again.';
-        }
-      }, false);
-    }
-
-    function resetQuacks() {
-      quackStatus.innerText = '';
-      database.ref('button1').set('quack', function (error) {
-        if (error) quackStatus.innerText = 'Could not reset quacks: ' + error.message;
-      });
-    }
-  </script>
 </body>
 </html>

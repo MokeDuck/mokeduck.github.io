@@ -79,28 +79,3 @@ main.container {
 /* Text inputs on the tool pages. */
 main .form-control { max-width: 40rem; }
 .output-text { white-space: pre-wrap; overflow-wrap: anywhere; }
-
-/* ------------------------------------------------------- Fun and Games page */
-.ttt-board {
-  display: grid;
-  width: max-content;
-  grid-template-columns: repeat(3, 3.5rem);
-  gap: .25rem;
-  margin: .5rem 0 1rem;
-}
-.ttt-board .buttonDuck {
-  width: 3.5rem;
-  height: 3.5rem;
-  padding: 0;
-  border: 0;
-  font-size: 1.5rem;
-  color: #333;
-  background: antiquewhite;
-  cursor: pointer;
-}
-.quack-btn {
-  max-width: 100%;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  text-align: left;
-}

@@ -1,0 +1,185 @@
+/*
+ * games.css - styles for DatabaseTesting.html ("Fun and Games") only.
+ * Loaded after site.css, so it can override it.
+ */
+
+.games-page { background: #f7f3ea; }
+
+/* ----------------------------------------------------------------- shared bits */
+.card-label {
+  margin: 0 0 .35rem;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #7a7466;
+}
+.games-card {
+  background: #fff;
+  border: 1px solid rgba(60, 50, 30, .1);
+  border-radius: 1rem;
+  box-shadow: 0 .5rem 1.25rem rgba(60, 50, 30, .08);
+  padding: 1.1rem 1.4rem;
+}
+button { touch-action: manipulation; }   /* rapid taps must not trigger double-tap zoom */
+
+/* ---------------------------------------------------------------------- header */
+.games-header { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+.games-title {
+  margin: 0 0 0 auto;
+  max-width: 22ch;
+  text-align: right;
+  font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+/* ----------------------------------------------------------------------- stage */
+/* Full-width band: the duck leans in from the left edge of the screen. */
+.stage {
+  --w: clamp(13rem, 34vw, 25rem);            /* displayed width of the whole duck image */
+  position: relative;
+  overflow: hidden;                          /* clips the duck at the screen edge and the bottom */
+  padding-top: 1rem;
+  background: linear-gradient(180deg, #dcece5 0%, #c6ddd4 100%);
+  border-top: 1px solid rgba(40, 70, 60, .12);
+  border-bottom: 6px solid #a9c8bd;
+}
+.stage-grid {
+  display: grid;
+  grid-template-columns: calc(var(--w) * .46) minmax(0, 1fr);
+  column-gap: .5rem;
+  padding-right: 1rem;
+  align-items: start;
+}
+.duck-col {
+  position: relative;
+  height: calc(var(--w) * 1.0);
+}
+.duck {
+  position: absolute;
+  top: 0;
+  left: calc(var(--w) * -.5);                /* hides the left half off-screen */
+  width: var(--w);
+  max-width: none;                           /* site.css caps images at 100% of their parent */
+  height: auto;
+  transform: rotate(14deg);
+  transform-origin: 60% 90%;
+  filter: drop-shadow(0 .4rem .6rem rgba(30, 50, 45, .25));
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- speech bubble */
+.bubble-col { position: relative; z-index: 1; padding-top: calc(var(--w) * .1); padding-bottom: 1rem; }   /* text and buttons stay above the duck */
+.bubble {
+  position: relative;
+  margin-left: 2.6rem;                       /* room for the tail */
+  max-width: 36rem;
+  background: #fff;
+  border: 3px solid #2b2b2b;
+  border-radius: 1.4rem;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, .15);
+}
+.bubble-text {
+  max-height: 10rem;
+  overflow-y: auto;
+  padding: .9rem 1.2rem;
+  border-radius: inherit;
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+/* Tail pointing back at the duck's beak: one triangle for the border, one for the fill. */
+.bubble::before,
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--w) * .1);
+  border-style: solid;
+  border-color: transparent;
+}
+.bubble::before { left: -2.55rem; margin-top: -.15rem; border-width: .85rem 2.5rem .85rem 0; border-right-color: #2b2b2b; }
+.bubble::after  { left: -2.05rem; border-width: .7rem 2.05rem .7rem 0; border-right-color: #fff; }
+.bubble-actions { margin: .9rem 0 0 2.6rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+.bubble-hint { margin: .5rem 0 0 2.6rem; font-size: .85rem; color: #4d5a55; }
+
+@keyframes bubble-pop { 0% { transform: scale(.96); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+@keyframes duck-bob {
+  0%, 100% { transform: rotate(14deg); }
+  40%      { transform: rotate(17deg) translateY(-1.5%); }
+}
+.bubble.quacked { animation: bubble-pop .25s ease-out; }
+.duck.quacked   { animation: duck-bob .3s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .bubble.quacked, .duck.quacked { animation: none; }
+}
+
+/* ----------------------------------------------------------------- official fact */
+.fact-col {
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / -1;
+  justify-self: end;
+  width: min(calc(100% - var(--w) * .5 - .5rem), 24rem);   /* keeps clear of the duck on narrow screens */
+  margin: 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .85rem;
+}
+.fact-card { width: 100%; text-align: right; }
+.fact-card h2 { margin: 0 0 .75rem; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; }
+
+/* --------------------------------------------------------------------- lower area */
+.games-lower { padding-top: 1.75rem; padding-bottom: 3rem; }
+.games-lower .ttt-card { width: max-content; max-width: 100%; }
+.watchers {
+  display: inline-block;
+  padding: .45rem 1rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(60, 50, 30, .1);
+  box-shadow: 0 .25rem .75rem rgba(60, 50, 30, .06);
+  font-weight: 600;
+}
+.watchers span { display: inline-block; min-width: 1.5em; text-align: center; color: #2f6f5a; }
+
+.ttt-card { --cell: 4rem; }
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, var(--cell));
+  gap: .35rem;
+  width: max-content;
+  margin: .25rem 0 0;
+}
+.ttt-board .buttonDuck {
+  width: var(--cell);
+  height: var(--cell);
+  padding: 0;
+  border: 0;
+  border-radius: .6rem;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #333;
+  background: #f3e6d2;
+  cursor: pointer;
+  transition: background-color .12s;
+}
+.ttt-board .buttonDuck:hover { background: #ecd8b9; }
+
+/* ------------------------------------------------------------------------ desktop */
+@media (min-width: 992px) {
+  .stage-grid {
+    grid-template-columns: calc(var(--w) * .46) minmax(0, 36rem) minmax(0, 1fr);
+    padding-right: 2rem;
+  }
+  .fact-col {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: center;
+    width: min(100%, 24rem);
+    margin: 0;
+  }
+}
+@media (min-width: 768px) { .ttt-card { --cell: 4.5rem; } }
