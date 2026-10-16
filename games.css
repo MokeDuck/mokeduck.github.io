@@ -15,7 +15,7 @@
   color: #fff;
 }
 .games-card {
-  background: #a19c92;
+  background: ##b8aa95;
   border: 1px solid rgba(60, 50, 30, .1);
   border-radius: 1rem;
   box-shadow: 0 .5rem 1.25rem rgba(60, 50, 30, .08);
@@ -41,9 +41,9 @@ button { touch-action: manipulation; }   /* rapid taps must not trigger double-t
   position: relative;
   overflow: hidden;                          /* clips the duck at the screen edge and the bottom */
   padding-top: 1rem;
-  background: linear-gradient(180deg, #a19c92 0%, #fff 100%);
+  background: linear-gradient(180deg, #b8aa95 0%, #fff 100%);
   border-top: 1px solid rgba(40, 70, 60, .12);
-  border-bottom: 6px solid #a19c92;
+  border-bottom: 6px solid #b8aa95;
 }
 .stage-grid {
   display: grid;
