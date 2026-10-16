@@ -72,19 +72,32 @@ button { touch-action: manipulation; }   /* rapid taps must not trigger double-t
 /* ---------------------------------------------------------------- speech bubble */
 .bubble-col { position: relative; z-index: 1; padding-top: calc(var(--w) * .1); padding-bottom: 1rem; }   /* text and buttons stay above the duck */
 .bubble {
+  /* a <button>: reset the browser look, then style it as the speech bubble */
+  appearance: none;
+  display: block;
   position: relative;
-  margin-left: 2.6rem;                       /* room for the tail */
+  width: calc(100% - 2.6rem);                /* a button's width:100% ignores margins, so subtract the tail room */
   max-width: 36rem;
+  margin: 0 0 0 2.6rem;                      /* room for the tail */
+  padding: 0;
+  font: inherit;
+  color: #212529;
+  text-align: left;
+  cursor: pointer;
   background: #fff;
   border: 3px solid #2b2b2b;
   border-radius: 1.4rem;
   box-shadow: 4px 4px 0 rgba(0, 0, 0, .15);
+  transition: transform .12s, box-shadow .12s;
 }
+.bubble:hover  { transform: translateY(-2px); box-shadow: 4px 6px 0 rgba(0, 0, 0, .18); }
+.bubble:active { transform: translateY(1px) scale(.99); box-shadow: 2px 2px 0 rgba(0, 0, 0, .15); }
+.bubble:focus-visible { outline: 3px solid #2f6f5a; outline-offset: 3px; }
+.bubble:disabled { cursor: not-allowed; opacity: .75; transform: none; box-shadow: 4px 4px 0 rgba(0, 0, 0, .15); }
+/* The text decides the height, so the bubble grows with every quack. */
 .bubble-text {
-  max-height: 10rem;
-  overflow-y: auto;
+  display: block;
   padding: .9rem 1.2rem;
-  border-radius: inherit;
   font-size: clamp(1rem, 2.4vw, 1.35rem);
   font-weight: 600;
   line-height: 1.3;
@@ -101,7 +114,8 @@ button { touch-action: manipulation; }   /* rapid taps must not trigger double-t
 }
 .bubble::before { left: -2.55rem; margin-top: -.15rem; border-width: .85rem 2.5rem .85rem 0; border-right-color: #2b2b2b; }
 .bubble::after  { left: -2.05rem; border-width: .7rem 2.05rem .7rem 0; border-right-color: #fff; }
-.bubble-actions { margin: .9rem 0 0 2.6rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+.bubble-actions { margin: .9rem 0 0 2.6rem; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .9rem; }
+.bubble-tip { font-size: .85rem; color: #4d5a55; }
 .bubble-hint { margin: .5rem 0 0 2.6rem; font-size: .85rem; color: #4d5a55; }
 
 @keyframes bubble-pop { 0% { transform: scale(.96); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
@@ -116,19 +130,15 @@ button { touch-action: manipulation; }   /* rapid taps must not trigger double-t
 }
 
 /* ----------------------------------------------------------------- official fact */
-.fact-col {
-  position: relative;
-  z-index: 1;
-  grid-column: 1 / -1;
-  justify-self: end;
-  width: min(calc(100% - var(--w) * .5 - .5rem), 24rem);   /* keeps clear of the duck on narrow screens */
-  margin: 0 0 1.25rem;
+/* Its own row above the duck, pushed to the right edge. */
+.games-fact {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: .85rem;
+  padding-bottom: 1.5rem;
 }
-.fact-card { width: 100%; text-align: right; }
+.fact-card { width: min(100%, 24rem); text-align: right; }
 .fact-card h2 { margin: 0 0 .75rem; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; }
 
 /* --------------------------------------------------------------------- lower area */
@@ -169,17 +179,5 @@ button { touch-action: manipulation; }   /* rapid taps must not trigger double-t
 .ttt-board .buttonDuck:hover { background: #ecd8b9; }
 
 /* ------------------------------------------------------------------------ desktop */
-@media (min-width: 992px) {
-  .stage-grid {
-    grid-template-columns: calc(var(--w) * .46) minmax(0, 36rem) minmax(0, 1fr);
-    padding-right: 2rem;
-  }
-  .fact-col {
-    grid-column: 3;
-    grid-row: 1;
-    align-self: center;
-    width: min(100%, 24rem);
-    margin: 0;
-  }
-}
 @media (min-width: 768px) { .ttt-card { --cell: 4.5rem; } }
+@media (min-width: 992px) { .stage-grid { padding-right: 2rem; } }
